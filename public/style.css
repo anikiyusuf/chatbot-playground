@@ -1,0 +1,130 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+body {
+     /* line-height: 1.5; */
+     background-image: url("./images/paper-sheet-among-mexican-food.jpg");
+     background-repeat: no-repeat;
+     background-size:cover;
+     background-attachment: fixed;
+     background-position: center;
+     height: 90vh;
+}
+
+#chatContainer {
+  width: 1000px;
+  background-image: url("./images/Burgerito.png");
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-attachment: fixed;
+  background-position: center;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  margin:40px auto;
+}
+
+#chatBox {
+  height: 400px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+#inputContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+#inputField {
+  flex-grow: 1;
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 20px;
+  background-color: #f0f0f0;
+  font-size: 16px;
+}
+
+#sendButton {
+  margin-left: 16px;
+  height: 40px;
+  width: 80px;
+  border: none;
+  border-radius: 20px;
+  background-color: white;
+  /* color: #ffffff;
+  font-size: 16px; */
+  cursor: pointer;
+}
+
+.message-outer-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  color: white;
+  height: 400px;
+}
+
+.message-outer-container.user {
+  justify-content: flex-end;
+}
+
+#bot {
+  padding: 15px 20px;
+  background: #205072;
+  border-radius: 5px;
+  max-width: 70%;
+}
+
+#user {
+  padding:2rem ;
+  background: #30b4c5;
+  border-radius:5px;
+  text-align: center;
+}
+
+.timestamp {
+  font-size: 0.65em;
+  color: white;
+  margin-top: 5px;
+}
+
+
+
+@media (max-width:992px){
+    #chatContainer {
+        width:700px;
+        margin:50px auto;
+}
+      
+}
+
+@media (max-width:768px){
+    body {
+       min-height: 90vh;
+   }
+   #chatContainer {
+    width:600px;
+    margin:20px auto;
+} 
+}
+
+
+@media (max-width:600px){
+    body {
+        min-height: 40vh;
+    }
+    #chatContainer {
+        width:300px;
+        margin:20px auto;
+} 
+}

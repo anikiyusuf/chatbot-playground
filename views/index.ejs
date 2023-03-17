@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link rel="stylesheet" href="/style.css" class="">
+    <title> Julian Restaurant Chatbot</title>
+  </head>
+  <body>
+    <main>
+      <div id="chatContainer">
+        <div id="chatBox"></div>
+        <div id="inputContainer">
+          <input
+            type="text"
+            id="inputField"
+            placeholder="Message here..."
+          />
+          <button id="sendButton">
+            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 4L3 11L10 14L13 21L20 4Z" stroke="#000000" stroke-width="1.5" stroke-linejoin="round"></path> </g></svg>
+          </button>
+        </div>
+      </div>
+    </main>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script>
+      // Socket connection to the server
+      const socket = io();
+
+      // Query DOM elements
+      const inputField = document.getElementById("inputField");
+      const chatBox = document.getElementById("chatBox");
+      const sendButton = document.getElementById("sendButton");
+
+      // Helper function to append a message to the chat box
+      function appendMessage(message, sender) {
+        const messageElement = document.createElement("div");
+        messageElement.className = "message-text";
+        messageElement.id = sender;
+        messageElement.textContent = message;
+
+        const timestamp = new Date().toLocaleTimeString(); // create timestamp
+        const timestampElement = document.createElement("span"); // create span element for timestamp
+        timestampElement.className = "timestamp";
+        timestampElement.textContent = timestamp;
+
+        const messageContainer = document.createElement("div");
+        const messageOuterContainer = document.createElement("div");
+        messageContainer.className = "message-container " + sender;
+        messageOuterContainer.className = "message-outer-container " + sender;
+        messageElement.innerHTML = message.replace(/\n/g, "<br>");
+        messageOuterContainer.appendChild(messageContainer);
+        messageContainer.appendChild(messageElement);
+        messageContainer.appendChild(timestampElement);
+        chatBox.appendChild(messageOuterContainer);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+
+      // Handling sending messages
+      function sendMessage() {
+        const message = inputField.value;
+        if (message === "") {
+          return;
+        }
+        appendMessage(message, "user");
+        socket.emit("user-message", message);
+        inputField.value = "";
+      }
+
+      // Handling receiving messages from the server
+      socket.on("bot-message", (message) => {
+        appendMessage(message, "bot");
+      });
+
+      // Attaching event listeners
+      sendButton.addEventListener("click", sendMessage);
+      inputField.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          sendMessage();
+        }
+      });
+    </script>
+  </body>
+</html>
